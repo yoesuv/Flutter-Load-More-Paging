@@ -2,10 +2,17 @@ import 'package:bloc/bloc.dart';
 import 'package:bloc_load_more/src/core/events/home_event.dart';
 import 'package:bloc_load_more/src/core/repositories/app_repository.dart';
 import 'package:bloc_load_more/src/core/states/home_state.dart';
+import 'package:rxdart/rxdart.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
   HomeBloc(HomeState initialState) : super(initialState);
+
+  @override
+  Stream<Transition<HomeEvent, HomeState>> transformEvents(
+      Stream<HomeEvent> events, TransitionFunction<HomeEvent, HomeState> transitionFn) {
+    return super.transformEvents(events.throttleTime(const Duration(milliseconds: 500)), transitionFn);
+  }
 
   @override
   Stream<HomeState> mapEventToState(HomeEvent event) async* {
