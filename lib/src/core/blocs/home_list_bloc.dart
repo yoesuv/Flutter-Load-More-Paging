@@ -1,27 +1,27 @@
 import 'package:bloc/bloc.dart';
-import 'package:bloc_load_more/src/core/events/home_event.dart';
+import 'package:bloc_load_more/src/core/events/home_list_event.dart';
 import 'package:bloc_load_more/src/core/repositories/app_repository.dart';
-import 'package:bloc_load_more/src/core/states/home_state.dart';
+import 'package:bloc_load_more/src/core/states/home_list_state.dart';
 import 'package:rxdart/rxdart.dart';
 
-class HomeBloc extends Bloc<HomeEvent, HomeState> {
+class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
 
-  HomeBloc(HomeState initialState) : super(initialState);
+  HomeListBloc(HomeListState initialState) : super(initialState);
 
   @override
-  Stream<Transition<HomeEvent, HomeState>> transformEvents(
-      Stream<HomeEvent> events, TransitionFunction<HomeEvent, HomeState> transitionFn) {
+  Stream<Transition<HomeListEvent, HomeListState>> transformEvents(
+      Stream<HomeListEvent> events, TransitionFunction<HomeListEvent, HomeListState> transitionFn) {
     return super.transformEvents(events.throttleTime(const Duration(milliseconds: 500)), transitionFn);
   }
 
   @override
-  Stream<HomeState> mapEventToState(HomeEvent event) async* {
-    if (event is HomeEventLoad) {
+  Stream<HomeListState> mapEventToState(HomeListEvent event) async* {
+    if (event is HomeListEventLoad) {
       yield await _mapPostFetchedToState(state);
     }
   }
 
-  Future<HomeState> _mapPostFetchedToState(HomeState state) async {
+  Future<HomeListState> _mapPostFetchedToState(HomeListState state) async {
     if (state.hasReachedMax) return state;
     try {
       if (state.status == PostStatus.initial) {

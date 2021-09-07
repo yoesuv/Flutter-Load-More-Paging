@@ -5,9 +5,9 @@ enum PostStatus {
   initial, success, failure
 }
 
-class HomeState extends Equatable {
+class HomeListState extends Equatable {
 
-  const HomeState({
+  const HomeListState({
     this.status = PostStatus.initial,
     this.posts = const <Post>[],
     this.hasReachedMax = false
@@ -17,8 +17,8 @@ class HomeState extends Equatable {
   final List<Post> posts;
   final bool hasReachedMax;
 
-  HomeState copyWith({PostStatus? status, List<Post>? posts, bool? hasReachedMax}) {
-    return HomeState(
+  HomeListState copyWith({PostStatus? status, List<Post>? posts, bool? hasReachedMax}) {
+    return HomeListState(
       status: status ?? this.status,
       posts: posts ?? this.posts,
       hasReachedMax:  hasReachedMax ?? this.hasReachedMax
