@@ -6,7 +6,7 @@ import 'package:rxdart/rxdart.dart';
 
 class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
 
-  HomeListBloc(HomeListState initialState) : super(initialState);
+  HomeListBloc() : super(const HomeListState());
 
   @override
   Stream<Transition<HomeListEvent, HomeListState>> transformEvents(
