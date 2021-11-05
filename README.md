@@ -19,3 +19,4 @@ Download apk file [here](https://drive.google.com/file/d/1snvUjjm2zUdSWC2nWm5ZWb
 
 ### Source ###
 - [bloclibrary.dev](https://bloclibrary.dev/#/flutterinfinitelisttutorial)
+- [stackoverflow](https://stackoverflow.com/a/47827264)

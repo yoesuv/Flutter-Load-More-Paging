@@ -2,18 +2,18 @@ import 'package:bloc_load_more/src/core/blocs/home_list_bloc.dart';
 import 'package:bloc_load_more/src/core/events/home_list_event.dart';
 import 'package:bloc_load_more/src/core/states/home_list_state.dart';
 import 'package:bloc_load_more/src/ui/widgets/item_load_more.dart';
-import 'package:bloc_load_more/src/ui/widgets/item_post.dart';
+import 'package:bloc_load_more/src/ui/widgets/item_post_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeList extends StatefulWidget {
+class GridList extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return _HomeListState();
+    return _GridListState();
   }
 }
 
-class _HomeListState extends State<HomeList> {
+class _GridListState extends State<GridList> {
 
   final _scrollController = ScrollController();
   late HomeListBloc _bloc;
@@ -31,7 +31,7 @@ class _HomeListState extends State<HomeList> {
       builder: (context, state) {
         if (state.status == PostStatus.failure) {
           return Center(
-            child: Text("Home List ${state.status}")
+              child: Text("Home List ${state.status}")
           );
         } else if (state.status == PostStatus.success) {
           if (state.posts.length == 0) {
@@ -39,15 +39,16 @@ class _HomeListState extends State<HomeList> {
                 child: Text("No Data")
             );
           } else {
-            return ListView.separated(
-              separatorBuilder: (context, index) => Divider(height: 1),
+            return GridView.builder(
+              scrollDirection: Axis.vertical,
+              controller: _scrollController,
+              itemCount: state.hasReachedMax ? state.posts.length : state.posts.length + 1,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
               itemBuilder: (context, index) {
                 return index >= state.posts.length
                     ? ItemLoadMore()
-                    : ItemPost(state.posts[index]);
+                    : ItemPostGrid(state.posts[index]);
               },
-              itemCount: state.hasReachedMax ? state.posts.length : state.posts.length + 1,
-              controller: _scrollController,
             );
           }
         } else {
