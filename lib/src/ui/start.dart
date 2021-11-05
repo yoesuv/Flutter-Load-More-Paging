@@ -1,3 +1,4 @@
+import 'package:bloc_load_more/src/ui/grid.dart';
 import 'package:bloc_load_more/src/ui/home.dart';
 import 'package:bloc_load_more/src/ui/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,10 @@ class Start extends StatelessWidget {
 
   VoidCallback goToList(BuildContext context) => (){
     Navigator.pushNamed(context, Home.routeName);
+  };
+
+  VoidCallback goToGrid(BuildContext context) => (){
+    Navigator.pushNamed(context, Grid.routeName);
   };
 
   @override
@@ -22,7 +27,7 @@ class Start extends StatelessWidget {
             children: [
               ButtonPrimary(onPress: goToList(context), text: 'Pagination List'),
               SizedBox(height: 20),
-              ButtonPrimary( onPress: () {}, text: 'Pagination Grid'),
+              ButtonPrimary( onPress: goToGrid(context), text: 'Pagination Grid'),
             ],
           ),
         ),
