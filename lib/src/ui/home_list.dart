@@ -28,6 +28,7 @@ class _HomeListState extends State<HomeList> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeListBloc, HomeListState>(
+      bloc: _bloc,
       builder: (context, state) {
         if (state.status == PostStatus.failure) {
           return Center(
