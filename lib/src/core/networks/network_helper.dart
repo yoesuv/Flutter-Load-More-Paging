@@ -1,6 +1,7 @@
 import 'package:bloc_load_more/src/core/data/constants.dart';
 import 'package:bloc_load_more/src/core/networks/logging_interceptor.dart';
 import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 
 class NetworkHelper {
 
@@ -11,7 +12,9 @@ class NetworkHelper {
       sendTimeout: TIME_OUT,
       receiveTimeout: TIME_OUT,
     ));
-    _dio.interceptors.add(LoggingInterceptor());
+    if (kDebugMode) {
+      _dio.interceptors.add(LoggingInterceptor());
+    }
   }
 
   late Dio _dio;
