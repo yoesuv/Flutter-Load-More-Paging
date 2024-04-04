@@ -3,10 +3,10 @@
 Basic Load more/Infinite paging apps (list & grid).  
 Download apk file [here](https://e.pcloud.link/publink/show?code=XZb04DZJm3CTDsUTLjefa0mseSNsHq5RKtV)
 ```
-Flutter 3.13.9 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision d211f42860 (3 weeks ago) • 2023-10-25 13:42:25 -0700
-Engine • revision 0545f8705d
-Tools • Dart 3.1.5 • DevTools 2.25.0
+Flutter 3.19.3 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision ba39319843 (4 weeks ago) • 2024-03-07 15:22:21 -0600
+Engine • revision 2e4ba9c6fb
+Tools • Dart 3.3.1 • DevTools 2.31.1
 ```
 
 #### Screenshot Android ####
