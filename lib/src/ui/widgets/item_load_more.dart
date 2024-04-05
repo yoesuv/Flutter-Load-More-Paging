@@ -6,7 +6,7 @@ class ItemLoadMore extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.symmetric(vertical: 16),
       child: const Center(
         child: SizedBox(
           height: 24,

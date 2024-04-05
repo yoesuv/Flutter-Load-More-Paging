@@ -12,12 +12,14 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('List Post')),
+      appBar: AppBar(title: const Text('List Post')),
       body: BlocProvider(
-        create: (context) => HomeListBloc()..add(HomeListEventLoad()),
-        child: HomeList(),
-      )
+        create: (context) => HomeListBloc()
+          ..add(
+            HomeListEventLoad(),
+          ),
+        child: const HomeList(),
+      ),
     );
   }
-
 }
