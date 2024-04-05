@@ -30,6 +30,10 @@ class _GridListState extends State<GridList> {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeListBloc, HomeListState>(
       bloc: _bloc,
+      buildWhen: (previous, current) =>
+          previous.status != current.status ||
+          previous.hasReachedMax != current.hasReachedMax ||
+          previous.posts != current.posts,
       builder: (context, state) {
         if (state.status == PostStatus.failure) {
           return Center(child: Text("Home List ${state.status}"));
@@ -50,7 +54,7 @@ class _GridListState extends State<GridList> {
               ),
               itemBuilder: (context, index) {
                 return index >= state.posts.length
-                    ? ItemLoadMore()
+                    ? const ItemLoadMore()
                     : ItemPostGrid(state.posts[index]);
               },
             );
