@@ -10,9 +10,10 @@ class MyApp extends StatelessWidget {
       title: 'Flutter BLOC Load More',
       theme: ThemeData(
         useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.teal).copyWith(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.teal,
           background: Colors.white,
-        ),
+        )
       ),
       onGenerateRoute: AppRoute.routes,
     );
