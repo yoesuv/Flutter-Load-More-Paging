@@ -1,35 +1,41 @@
 import 'package:equatable/equatable.dart';
 
-class Post extends Equatable{
+class Post extends Equatable {
+  const Post({
+    this.userId,
+    this.id,
+    this.title,
+    this.body,
+  });
 
-  Post({this.userId, this.id, this.title, this.body});
+  final int? userId;
+  final int? id;
+  final String? title;
+  final String? body;
 
-  Post.fromJson(dynamic json) {
-    userId = int.parse(json['userId'].toString());
-    id = int.parse(json['id'].toString());
-    title = json['title'].toString();
-    body = json['body'].toString();
-  }
+  factory Post.fromJson(Map<String, dynamic> json) => Post(
+        userId: json["userId"],
+        id: json["id"],
+        title: json["title"],
+        body: json["body"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "userId": userId,
+        "id": id,
+        "title": title,
+        "body": body,
+      };
 
   static List<Post> buildListFromJson(List<dynamic> json) {
     return json.map((dynamic i) => Post.fromJson(i)).toList();
   }
 
-  int? userId;
-  int? id;
-  String? title;
-  String? body;
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['userId'] = userId;
-    data['id'] = id;
-    data['title'] = title;
-    data['body'] = body;
-    return data;
-  }
-
   @override
-  List<Object> get props => <Object>[id ?? 0, title ?? "", body ?? ""];
-
+  List<Object?> get props => [
+        userId,
+        id,
+        title,
+        body,
+      ];
 }
