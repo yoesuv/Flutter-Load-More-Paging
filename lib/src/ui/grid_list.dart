@@ -7,6 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class GridList extends StatefulWidget {
+  const GridList({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return _GridListState();
@@ -14,7 +16,6 @@ class GridList extends StatefulWidget {
 }
 
 class _GridListState extends State<GridList> {
-
   final _scrollController = ScrollController();
   late HomeListBloc _bloc;
 
@@ -31,20 +32,22 @@ class _GridListState extends State<GridList> {
       bloc: _bloc,
       builder: (context, state) {
         if (state.status == PostStatus.failure) {
-          return Center(
-              child: Text("Home List ${state.status}")
-          );
+          return Center(child: Text("Home List ${state.status}"));
         } else if (state.status == PostStatus.success) {
-          if (state.posts.length == 0) {
-            return Center(
-                child: Text("No Data")
+          if (state.posts.isEmpty) {
+            return const Center(
+              child: Text("No Data"),
             );
           } else {
             return GridView.builder(
               scrollDirection: Axis.vertical,
               controller: _scrollController,
-              itemCount: state.hasReachedMax ? state.posts.length : state.posts.length + 1,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+              itemCount: state.hasReachedMax
+                  ? state.posts.length
+                  : state.posts.length + 1,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
               itemBuilder: (context, index) {
                 return index >= state.posts.length
                     ? ItemLoadMore()
@@ -53,7 +56,7 @@ class _GridListState extends State<GridList> {
             );
           }
         } else {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -77,5 +80,4 @@ class _GridListState extends State<GridList> {
     final currentScroll = _scrollController.offset;
     return currentScroll >= (maxScroll * 0.9);
   }
-
 }
