@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class Grid extends StatelessWidget {
   static const String routeName = 'grid';
 
+  const Grid({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

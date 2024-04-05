@@ -8,25 +8,32 @@ class AppRoute {
   static Route<dynamic> routes(RouteSettings settings) {
     if (settings.name == '/') {
       return MaterialPageRoute(builder: (context) {
-        return Splash();
+        return const Splash();
       });
     } else if (settings.name == Home.routeName) {
       return MaterialPageRoute(builder: (context) {
-        return Home();
+        return const Home();
       });
     } else if (settings.name == Start.routeName) {
       return MaterialPageRoute(builder: (context) {
-        return Start();
+        return const Start();
       });
     } else if (settings.name == Grid.routeName) {
       return MaterialPageRoute(builder: (context) {
-        return Grid();
+        return const Grid();
       });
     } else {
       return MaterialPageRoute(builder: (context) {
-        return Scaffold(
+        return const Scaffold(
           body: Center(
-            child: Text('Page Not Found'),
+            child: Text(
+              'Page Not Found',
+              style: TextStyle(
+                color: Colors.red,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
           ),
         );
       });
