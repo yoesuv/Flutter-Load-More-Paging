@@ -11,22 +11,35 @@ class ExpandedList extends StatelessWidget {
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            pinned: true,
             expandedHeight: 200,
             title: Text("EXPANDED"),
             backgroundColor: Colors.teal,
           ),
-          SliverList(delegate: SliverChildListDelegate(
-            [
-              Text("Item 1"),
-              Text("Item 2"),
-              Text("Item 3"),
-            ]
-          ),),
+          SliverList(
+            delegate: SliverChildListDelegate([
+              _buildList(),
+            ]),
+          ),
         ],
       ),
     );
-
-
   }
 
+  Widget _buildList() {
+    return ListView.builder(
+      shrinkWrap: true,
+      itemCount: 33,
+      physics: const NeverScrollableScrollPhysics(),
+      primary: false,
+      itemBuilder: (context, index) {
+        return Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: 8,
+          ),
+          child: Text("Item $index"),
+        );
+      },
+    );
+  }
 }

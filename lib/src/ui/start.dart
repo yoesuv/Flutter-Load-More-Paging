@@ -38,7 +38,7 @@ class Start extends StatelessWidget {
               const SizedBox(height: 20),
               ButtonPrimary(
                 onPress: goToScreen(context, ExpandedList.routeName),
-                text: 'Expanded Grid',
+                text: 'Expanded List',
               ),
             ],
           ),
