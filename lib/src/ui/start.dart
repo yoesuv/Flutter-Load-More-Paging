@@ -1,3 +1,4 @@
+import 'package:bloc_load_more/src/ui/expanded_list.dart';
 import 'package:bloc_load_more/src/ui/grid.dart';
 import 'package:bloc_load_more/src/ui/home.dart';
 import 'package:bloc_load_more/src/ui/widgets/button_primary.dart';
@@ -8,18 +9,8 @@ class Start extends StatelessWidget {
 
   const Start({super.key});
 
-  VoidCallback goToList(BuildContext context) => () {
-        Navigator.pushNamed(
-          context,
-          Home.routeName,
-        );
-      };
-
-  VoidCallback goToGrid(BuildContext context) => () {
-        Navigator.pushNamed(
-          context,
-          Grid.routeName,
-        );
+  VoidCallback goToScreen(BuildContext context, String route) => () {
+        Navigator.pushNamed(context, route);
       };
 
   @override
@@ -35,13 +26,19 @@ class Start extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               ButtonPrimary(
-                onPress: goToList(context),
+                onPress: goToScreen(context, Home.routeName),
                 text: 'Pagination List',
               ),
               const SizedBox(height: 20),
               ButtonPrimary(
-                onPress: goToGrid(context),
+                //onPress: goToGrid(context),
+                onPress: goToScreen(context, Grid.routeName),
                 text: 'Pagination Grid',
+              ),
+              const SizedBox(height: 20),
+              ButtonPrimary(
+                onPress: goToScreen(context, ExpandedList.routeName),
+                text: 'Expanded Grid',
               ),
             ],
           ),
