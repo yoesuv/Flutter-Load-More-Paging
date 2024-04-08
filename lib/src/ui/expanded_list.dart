@@ -49,13 +49,11 @@ class _ExpandedListState extends State<ExpandedList> {
           SliverAppBar(
             pinned: true,
             floating: true,
-            title: const Text("EXPANDED"),
             expandedHeight: 200,
-            centerTitle: false,
-            flexibleSpace: SizedBox(
-              width: double.infinity,
-              height: 200,
-              child: Image.asset(
+            flexibleSpace: FlexibleSpaceBar(
+              title: const Text("Expanded List"),
+              centerTitle: false,
+              background: Image.asset(
                 "assets/images/kame-house.png",
                 fit: BoxFit.cover,
               ),
@@ -69,10 +67,8 @@ class _ExpandedListState extends State<ExpandedList> {
                 previous.posts != current.posts,
             builder: (context, state) {
               if (state.status == PostStatus.success) {
-                return SliverList(
-                  delegate: SliverChildListDelegate([
-                    _buildList(state),
-                  ]),
+                return SliverToBoxAdapter(
+                  child: _buildList(state),
                 );
               }
               return const SliverFillRemaining(
@@ -96,6 +92,7 @@ class _ExpandedListState extends State<ExpandedList> {
   Widget _buildList(HomeListState state) {
     return ListView.separated(
       shrinkWrap: true,
+      padding: const EdgeInsets.only(top: 0),
       itemCount:
           state.hasReachedMax ? state.posts.length : state.posts.length + 1,
       physics: const NeverScrollableScrollPhysics(),
