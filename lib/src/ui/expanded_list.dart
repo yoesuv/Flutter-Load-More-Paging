@@ -49,13 +49,15 @@ class _ExpandedListState extends State<ExpandedList> {
           SliverAppBar(
             pinned: true,
             floating: true,
-            expandedHeight: 200,
             title: const Text("EXPANDED"),
-            flexibleSpace: Container(
+            expandedHeight: 200,
+            centerTitle: false,
+            flexibleSpace: SizedBox(
               width: double.infinity,
               height: 200,
-              decoration: const BoxDecoration(
-                color: Colors.teal,
+              child: Image.asset(
+                "assets/images/kame-house.png",
+                fit: BoxFit.cover,
               ),
             ),
           ),
