@@ -1,9 +1,30 @@
+import 'package:bloc_load_more/src/core/blocs/home_list_bloc.dart';
+import 'package:bloc_load_more/src/core/events/home_list_event.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ExpandedList extends StatelessWidget {
+class ExpandedList extends StatefulWidget {
   static const String routeName = 'expanded-list';
 
   const ExpandedList({super.key});
+
+  @override
+  State<StatefulWidget> createState() {
+    return _ExpandedListState();
+  }
+
+}
+
+class _ExpandedListState extends State<ExpandedList> {
+
+  HomeListBloc? _homeListBloc;
+
+  @override
+  void initState() {
+    super.initState();
+    _homeListBloc = context.read<HomeListBloc>();
+    _homeListBloc?.add(HomeListEventLoad());
+  }
 
   @override
   Widget build(BuildContext context) {
