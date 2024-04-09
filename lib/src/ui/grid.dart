@@ -7,13 +7,20 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class Grid extends StatelessWidget {
   static const String routeName = 'grid';
 
+  const Grid({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('List Grid')),
+      appBar: AppBar(
+        title: const Text('List Grid'),
+      ),
       body: BlocProvider(
-        create: (context) => HomeListBloc()..add(HomeListEventLoad()),
-        child: GridList(),
+        create: (context) => HomeListBloc()
+          ..add(
+            HomeListEventLoad(),
+          ),
+        child: const GridList(),
       ),
     );
   }
