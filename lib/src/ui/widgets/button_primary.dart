@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 
 class ButtonPrimary extends StatelessWidget {
-
   final VoidCallback onPress;
   final String text;
 
-  ButtonPrimary({required this.onPress, required this.text});
+  const ButtonPrimary({super.key, required this.onPress, required this.text});
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +12,8 @@ class ButtonPrimary extends StatelessWidget {
       height: 45,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: Colors.teal,
-          borderRadius: BorderRadius.circular(8)
+        color: Colors.teal,
+        borderRadius: BorderRadius.circular(8),
       ),
       child: MaterialButton(
         onPressed: onPress,
@@ -22,5 +21,4 @@ class ButtonPrimary extends StatelessWidget {
       ),
     );
   }
-
 }

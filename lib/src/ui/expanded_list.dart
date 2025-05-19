@@ -51,7 +51,10 @@ class _ExpandedListState extends State<ExpandedList> {
             floating: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: const Text("Expanded List"),
+              title: Text(
+                "Expanded List",
+                style: TextStyle(color: Colors.white),
+              ),
               centerTitle: false,
               background: Image.asset(
                 "assets/images/kame-house.png",
@@ -61,20 +64,17 @@ class _ExpandedListState extends State<ExpandedList> {
           ),
           BlocBuilder<HomeListBloc, HomeListState>(
             bloc: _homeListBloc,
-            buildWhen: (previous, current) =>
-                previous.status != current.status ||
-                previous.hasReachedMax != current.hasReachedMax ||
-                previous.posts != current.posts,
+            buildWhen:
+                (previous, current) =>
+                    previous.status != current.status ||
+                    previous.hasReachedMax != current.hasReachedMax ||
+                    previous.posts != current.posts,
             builder: (context, state) {
               if (state.status == PostStatus.success) {
-                return SliverToBoxAdapter(
-                  child: _buildList(state),
-                );
+                return SliverToBoxAdapter(child: _buildList(state));
               }
               return const SliverFillRemaining(
-                child: Center(
-                  child: CircularProgressIndicator(),
-                ),
+                child: Center(child: CircularProgressIndicator()),
               );
             },
           ),
