@@ -4,14 +4,15 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 
 class NetworkHelper {
-
   NetworkHelper() {
-    _dio = Dio(BaseOptions(
-      baseUrl: BASE_URL,
-      connectTimeout: TIME_OUT,
-      sendTimeout: TIME_OUT,
-      receiveTimeout: TIME_OUT,
-    ));
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: BASE_URL,
+        connectTimeout: TIME_OUT,
+        sendTimeout: TIME_OUT,
+        receiveTimeout: TIME_OUT,
+      ),
+    );
     if (kDebugMode) {
       _dio.interceptors.add(LoggingInterceptor());
     }
@@ -28,5 +29,4 @@ class NetworkHelper {
     }
     return response;
   }
-
 }
