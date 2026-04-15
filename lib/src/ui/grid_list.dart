@@ -39,9 +39,7 @@ class _GridListState extends State<GridList> {
           return Center(child: Text("Home List ${state.status}"));
         } else if (state.status == PostStatus.success) {
           if (state.posts.isEmpty) {
-            return const Center(
-              child: Text("No Data"),
-            );
+            return const Center(child: Text("No Data"));
           } else {
             return GridView.builder(
               scrollDirection: Axis.vertical,
@@ -60,9 +58,7 @@ class _GridListState extends State<GridList> {
             );
           }
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

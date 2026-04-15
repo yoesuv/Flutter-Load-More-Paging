@@ -27,9 +27,5 @@ class HomeListState extends Equatable {
   }
 
   @override
-  List<Object?> get props => [
-        status,
-        posts,
-        hasReachedMax,
-      ];
+  List<Object?> get props => [status, posts, hasReachedMax];
 }

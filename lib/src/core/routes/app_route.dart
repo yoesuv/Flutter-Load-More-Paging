@@ -11,43 +11,55 @@ class AppRoute {
   static Route<dynamic> routes(RouteSettings settings) {
     switch (settings.name) {
       case "/":
-        return MaterialPageRoute(builder: (context) {
-          return const Splash();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Splash();
+          },
+        );
       case Home.routeName:
-        return MaterialPageRoute(builder: (context) {
-          return const Home();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Home();
+          },
+        );
       case Start.routeName:
-        return MaterialPageRoute(builder: (context) {
-          return const Start();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Start();
+          },
+        );
       case Grid.routeName:
-        return MaterialPageRoute(builder: (context) {
-          return const Grid();
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Grid();
+          },
+        );
       case ExpandedList.routeName:
-        return MaterialPageRoute(builder: (context) {
-          return BlocProvider(
-            create: (context) => HomeListBloc(),
-            child: const ExpandedList(),
-          );
-        });
+        return MaterialPageRoute(
+          builder: (context) {
+            return BlocProvider(
+              create: (context) => HomeListBloc(),
+              child: const ExpandedList(),
+            );
+          },
+        );
       default:
-        return MaterialPageRoute(builder: (context) {
-          return const Scaffold(
-            body: Center(
-              child: Text(
-                'Page Not Found',
-                style: TextStyle(
-                  color: Colors.red,
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
+        return MaterialPageRoute(
+          builder: (context) {
+            return const Scaffold(
+              body: Center(
+                child: Text(
+                  'Page Not Found',
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
-            ),
-          );
-        });
+            );
+          },
+        );
     }
   }
 }

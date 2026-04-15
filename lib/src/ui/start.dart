@@ -10,15 +10,13 @@ class Start extends StatelessWidget {
   const Start({super.key});
 
   VoidCallback goToScreen(BuildContext context, String route) => () {
-        Navigator.pushNamed(context, route);
-      };
+    Navigator.pushNamed(context, route);
+  };
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Flutter Infinite List'),
-      ),
+      appBar: AppBar(title: const Text('Flutter Infinite List')),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Center(

@@ -55,9 +55,7 @@ class _HomeListState extends State<HomeList> {
             );
           }
         } else {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
+          return const Center(child: CircularProgressIndicator());
         }
       },
     );

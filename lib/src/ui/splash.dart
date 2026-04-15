@@ -20,10 +20,7 @@ class Splash extends StatelessWidget {
       body: Center(
         child: Text(
           'BLOC Load More',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
     );
