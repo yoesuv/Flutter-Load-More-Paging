@@ -12,17 +12,15 @@ class ExpandedList extends StatefulWidget {
   const ExpandedList({super.key});
 
   @override
-  State<StatefulWidget> createState() {
-    return _ExpandedListState();
-  }
+  State<StatefulWidget> createState() => _ExpandedListState();
 }
 
 class _ExpandedListState extends State<ExpandedList> {
-  HomeListBloc? _homeListBloc;
+  late HomeListBloc _homeListBloc;
   final _scrollController = ScrollController();
 
   void _onScroll() {
-    if (_isBottom) _homeListBloc?.add(HomeListEventLoad());
+    if (_isBottom) _homeListBloc.add(HomeListEventLoad());
   }
 
   bool get _isBottom {
@@ -36,7 +34,7 @@ class _ExpandedListState extends State<ExpandedList> {
   void initState() {
     super.initState();
     _homeListBloc = context.read<HomeListBloc>();
-    _homeListBloc?.add(HomeListEventLoad());
+    _homeListBloc.add(HomeListEventLoad());
     _scrollController.addListener(_onScroll);
   }
 
@@ -51,31 +49,51 @@ class _ExpandedListState extends State<ExpandedList> {
             floating: true,
             expandedHeight: 200,
             flexibleSpace: FlexibleSpaceBar(
-              title: Text(
-                "Expanded List",
+              title: const Text(
+                'Expanded List',
                 style: TextStyle(color: Colors.white),
               ),
               centerTitle: false,
               background: Image.asset(
-                "assets/images/kame-house.png",
+                'assets/images/kame-house.png',
                 fit: BoxFit.cover,
               ),
             ),
           ),
           BlocBuilder<HomeListBloc, HomeListState>(
             bloc: _homeListBloc,
-            buildWhen:
-                (previous, current) =>
-                    previous.status != current.status ||
-                    previous.hasReachedMax != current.hasReachedMax ||
-                    previous.posts != current.posts,
+            buildWhen: (previous, current) =>
+                previous.status != current.status ||
+                previous.hasReachedMax != current.hasReachedMax ||
+                previous.posts != current.posts,
             builder: (context, state) {
-              if (state.status == PostStatus.success) {
-                return SliverToBoxAdapter(child: _buildList(state));
+              switch (state.status) {
+                case PostStatus.success:
+                  if (state.posts.isEmpty) {
+                    return const SliverFillRemaining(
+                      child: Center(child: Text('No Data')),
+                    );
+                  }
+                  return SliverList.builder(
+                    itemCount: _itemCount(state),
+                    itemBuilder: (context, index) {
+                      if (index.isOdd) return const Divider(height: 1);
+                      final itemIndex = index ~/ 2;
+                      if (itemIndex >= state.posts.length) {
+                        return const ItemLoadMore();
+                      }
+                      return ItemPost(state.posts[itemIndex]);
+                    },
+                  );
+                case PostStatus.failure:
+                  return const SliverFillRemaining(
+                    child: Center(child: Text('Something went wrong')),
+                  );
+                case PostStatus.initial:
+                  return const SliverFillRemaining(
+                    child: Center(child: CircularProgressIndicator()),
+                  );
               }
-              return const SliverFillRemaining(
-                child: Center(child: CircularProgressIndicator()),
-              );
             },
           ),
         ],
@@ -83,26 +101,16 @@ class _ExpandedListState extends State<ExpandedList> {
     );
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
+  int _itemCount(HomeListState state) {
+    final totalItems = state.hasReachedMax
+        ? state.posts.length
+        : state.posts.length + 1;
+    return totalItems * 2 - 1;
   }
 
-  Widget _buildList(HomeListState state) {
-    return ListView.separated(
-      shrinkWrap: true,
-      padding: const EdgeInsets.only(top: 0),
-      itemCount:
-          state.hasReachedMax ? state.posts.length : state.posts.length + 1,
-      physics: const NeverScrollableScrollPhysics(),
-      primary: false,
-      itemBuilder: (context, index) {
-        return index >= state.posts.length
-            ? const ItemLoadMore()
-            : ItemPost(state.posts[index]);
-      },
-      separatorBuilder: (context, index) => const Divider(height: 1),
-    );
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
