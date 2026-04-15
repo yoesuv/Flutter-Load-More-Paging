@@ -7,10 +7,11 @@ class NetworkHelper {
   NetworkHelper() {
     _dio = Dio(
       BaseOptions(
-        baseUrl: BASE_URL,
-        connectTimeout: TIME_OUT,
-        sendTimeout: TIME_OUT,
-        receiveTimeout: TIME_OUT,
+        baseUrl: baseUrl,
+        connectTimeout: baseTimeOut,
+        sendTimeout: baseTimeOut,
+        receiveTimeout: baseTimeOut,
+        headers: {'User-Agent': userAgent, 'Accept': 'application/json'},
       ),
     );
     if (kDebugMode) {
