@@ -13,9 +13,11 @@ class Grid extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: const Text('List Grid')),
-      body: BlocProvider(
-        create: (context) => HomeListBloc()..add(HomeListEventLoad()),
-        child: const GridList(),
+      body: SafeArea(
+        child: BlocProvider(
+          create: (context) => HomeListBloc()..add(HomeListEventLoad()),
+          child: const GridList(),
+        ),
       ),
     );
   }

@@ -15,82 +15,85 @@ class ExpandedList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NotificationListener<ScrollNotification>(
-        onNotification: (notification) {
-          if (notification.metrics.pixels >=
-              notification.metrics.maxScrollExtent * _scrollThreshold) {
-            context.read<HomeListBloc>().add(HomeListEventLoad());
-          }
-          return false;
-        },
-        child: CustomScrollView(
-          slivers: [
-            SliverAppBar(
-              pinned: true,
-              floating: true,
-              expandedHeight: 200,
-              flexibleSpace: FlexibleSpaceBar(
-                title: const Text(
-                  'Expanded List',
-                  style: TextStyle(color: Colors.white),
-                ),
-                centerTitle: false,
-                background: Image.asset(
-                  'assets/images/kame-house.png',
-                  fit: BoxFit.cover,
+      body: SafeArea(
+        top: false,
+        child: NotificationListener<ScrollNotification>(
+          onNotification: (notification) {
+            if (notification.metrics.pixels >=
+                notification.metrics.maxScrollExtent * _scrollThreshold) {
+              context.read<HomeListBloc>().add(HomeListEventLoad());
+            }
+            return false;
+          },
+          child: CustomScrollView(
+            slivers: [
+              SliverAppBar(
+                pinned: true,
+                floating: true,
+                expandedHeight: 200,
+                flexibleSpace: FlexibleSpaceBar(
+                  title: const Text(
+                    'Expanded List',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  centerTitle: false,
+                  background: Image.asset(
+                    'assets/images/kame-house.png',
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-            ),
-            BlocBuilder<HomeListBloc, HomeListState>(
-              buildWhen: (previous, current) =>
-                  previous.status != current.status ||
-                  previous.hasReachedMax != current.hasReachedMax ||
-                  previous.posts != current.posts,
-              builder: (context, state) {
-                switch (state.status) {
-                  case PostStatus.success:
-                    if (state.posts.isEmpty) {
-                      return const SliverFillRemaining(
-                        child: Center(child: Text('No Data')),
+              BlocBuilder<HomeListBloc, HomeListState>(
+                buildWhen: (previous, current) =>
+                    previous.status != current.status ||
+                    previous.hasReachedMax != current.hasReachedMax ||
+                    previous.posts != current.posts,
+                builder: (context, state) {
+                  switch (state.status) {
+                    case PostStatus.success:
+                      if (state.posts.isEmpty) {
+                        return const SliverFillRemaining(
+                          child: Center(child: Text('No Data')),
+                        );
+                      }
+                      return SliverList.builder(
+                        itemCount: _itemCount(state),
+                        itemBuilder: (context, index) {
+                          if (index.isOdd) return const Divider(height: 1);
+                          final itemIndex = index ~/ 2;
+                          if (itemIndex >= state.posts.length) {
+                            return const ItemLoadMore();
+                          }
+                          return ItemPost(state.posts[itemIndex]);
+                        },
                       );
-                    }
-                    return SliverList.builder(
-                      itemCount: _itemCount(state),
-                      itemBuilder: (context, index) {
-                        if (index.isOdd) return const Divider(height: 1);
-                        final itemIndex = index ~/ 2;
-                        if (itemIndex >= state.posts.length) {
-                          return const ItemLoadMore();
-                        }
-                        return ItemPost(state.posts[itemIndex]);
-                      },
-                    );
-                  case PostStatus.failure:
-                    return SliverFillRemaining(
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const Text('Something went wrong'),
-                            const SizedBox(height: 16),
-                            ElevatedButton(
-                              onPressed: () => context.read<HomeListBloc>().add(
-                                HomeListEventLoad(),
+                    case PostStatus.failure:
+                      return SliverFillRemaining(
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const Text('Something went wrong'),
+                              const SizedBox(height: 16),
+                              ElevatedButton(
+                                onPressed: () => context
+                                    .read<HomeListBloc>()
+                                    .add(HomeListEventLoad()),
+                                child: const Text('Retry'),
                               ),
-                              child: const Text('Retry'),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                    );
-                  case PostStatus.initial:
-                    return const SliverFillRemaining(
-                      child: Center(child: CircularProgressIndicator()),
-                    );
-                }
-              },
-            ),
-          ],
+                      );
+                    case PostStatus.initial:
+                      return const SliverFillRemaining(
+                        child: Center(child: CircularProgressIndicator()),
+                      );
+                  }
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
