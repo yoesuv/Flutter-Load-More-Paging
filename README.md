@@ -21,6 +21,7 @@ Tools • Dart 3.7.2 • DevTools 2.42.3
 - [bloc concurency](https://pub.dev/packages/bloc_concurrency)
 - [dio](https://pub.dev/packages/dio)
 - [equatable](https://pub.dev/packages/equatable)
+- [logger](https://pub.dev/packages/logger)
 - [stream transform](https://pub.dev/packages/stream_transform)
 
 ### Source ###
