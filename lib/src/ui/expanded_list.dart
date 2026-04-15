@@ -6,97 +6,92 @@ import 'package:bloc_load_more/src/ui/widgets/item_post.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ExpandedList extends StatefulWidget {
+const double _scrollThreshold = 0.9;
+
+class ExpandedList extends StatelessWidget {
   static const String routeName = 'expanded-list';
-
   const ExpandedList({super.key});
-
-  @override
-  State<StatefulWidget> createState() => _ExpandedListState();
-}
-
-class _ExpandedListState extends State<ExpandedList> {
-  late HomeListBloc _homeListBloc;
-  final _scrollController = ScrollController();
-
-  void _onScroll() {
-    if (_isBottom) _homeListBloc.add(HomeListEventLoad());
-  }
-
-  bool get _isBottom {
-    if (!_scrollController.hasClients) return false;
-    final maxScroll = _scrollController.position.maxScrollExtent;
-    final currentScroll = _scrollController.offset;
-    return currentScroll >= (maxScroll * 0.9);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _homeListBloc = context.read<HomeListBloc>();
-    _homeListBloc.add(HomeListEventLoad());
-    _scrollController.addListener(_onScroll);
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        controller: _scrollController,
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            floating: true,
-            expandedHeight: 200,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                'Expanded List',
-                style: TextStyle(color: Colors.white),
-              ),
-              centerTitle: false,
-              background: Image.asset(
-                'assets/images/kame-house.png',
-                fit: BoxFit.cover,
+      body: NotificationListener<ScrollNotification>(
+        onNotification: (notification) {
+          if (notification.metrics.pixels >=
+              notification.metrics.maxScrollExtent * _scrollThreshold) {
+            context.read<HomeListBloc>().add(HomeListEventLoad());
+          }
+          return false;
+        },
+        child: CustomScrollView(
+          slivers: [
+            SliverAppBar(
+              pinned: true,
+              floating: true,
+              expandedHeight: 200,
+              flexibleSpace: FlexibleSpaceBar(
+                title: const Text(
+                  'Expanded List',
+                  style: TextStyle(color: Colors.white),
+                ),
+                centerTitle: false,
+                background: Image.asset(
+                  'assets/images/kame-house.png',
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
-          ),
-          BlocBuilder<HomeListBloc, HomeListState>(
-            bloc: _homeListBloc,
-            buildWhen: (previous, current) =>
-                previous.status != current.status ||
-                previous.hasReachedMax != current.hasReachedMax ||
-                previous.posts != current.posts,
-            builder: (context, state) {
-              switch (state.status) {
-                case PostStatus.success:
-                  if (state.posts.isEmpty) {
-                    return const SliverFillRemaining(
-                      child: Center(child: Text('No Data')),
+            BlocBuilder<HomeListBloc, HomeListState>(
+              buildWhen: (previous, current) =>
+                  previous.status != current.status ||
+                  previous.hasReachedMax != current.hasReachedMax ||
+                  previous.posts != current.posts,
+              builder: (context, state) {
+                switch (state.status) {
+                  case PostStatus.success:
+                    if (state.posts.isEmpty) {
+                      return const SliverFillRemaining(
+                        child: Center(child: Text('No Data')),
+                      );
+                    }
+                    return SliverList.builder(
+                      itemCount: _itemCount(state),
+                      itemBuilder: (context, index) {
+                        if (index.isOdd) return const Divider(height: 1);
+                        final itemIndex = index ~/ 2;
+                        if (itemIndex >= state.posts.length) {
+                          return const ItemLoadMore();
+                        }
+                        return ItemPost(state.posts[itemIndex]);
+                      },
                     );
-                  }
-                  return SliverList.builder(
-                    itemCount: _itemCount(state),
-                    itemBuilder: (context, index) {
-                      if (index.isOdd) return const Divider(height: 1);
-                      final itemIndex = index ~/ 2;
-                      if (itemIndex >= state.posts.length) {
-                        return const ItemLoadMore();
-                      }
-                      return ItemPost(state.posts[itemIndex]);
-                    },
-                  );
-                case PostStatus.failure:
-                  return const SliverFillRemaining(
-                    child: Center(child: Text('Something went wrong')),
-                  );
-                case PostStatus.initial:
-                  return const SliverFillRemaining(
-                    child: Center(child: CircularProgressIndicator()),
-                  );
-              }
-            },
-          ),
-        ],
+                  case PostStatus.failure:
+                    return SliverFillRemaining(
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Text('Something went wrong'),
+                            const SizedBox(height: 16),
+                            ElevatedButton(
+                              onPressed: () => context.read<HomeListBloc>().add(
+                                HomeListEventLoad(),
+                              ),
+                              child: const Text('Retry'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  case PostStatus.initial:
+                    return const SliverFillRemaining(
+                      child: Center(child: CircularProgressIndicator()),
+                    );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -106,11 +101,5 @@ class _ExpandedListState extends State<ExpandedList> {
         ? state.posts.length
         : state.posts.length + 1;
     return totalItems * 2 - 1;
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
   }
 }

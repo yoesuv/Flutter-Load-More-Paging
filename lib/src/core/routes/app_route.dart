@@ -1,4 +1,5 @@
 import 'package:bloc_load_more/src/core/blocs/home_list_bloc.dart';
+import 'package:bloc_load_more/src/core/events/home_list_event.dart';
 import 'package:bloc_load_more/src/ui/expanded_list.dart';
 import 'package:bloc_load_more/src/ui/grid.dart';
 import 'package:bloc_load_more/src/ui/home.dart';
@@ -38,7 +39,7 @@ class AppRoute {
         return MaterialPageRoute(
           builder: (context) {
             return BlocProvider(
-              create: (context) => HomeListBloc(),
+              create: (context) => HomeListBloc()..add(HomeListEventLoad()),
               child: const ExpandedList(),
             );
           },
