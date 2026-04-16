@@ -29,7 +29,6 @@ class Start extends StatelessWidget {
               ),
               const SizedBox(height: 20),
               ButtonPrimary(
-                //onPress: goToGrid(context),
                 onPress: goToScreen(context, Grid.routeName),
                 text: 'Pagination Grid',
               ),
