@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc_load_more/src/ui/start.dart';
+import 'package:bloc_load_more/src/features/start/start.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {

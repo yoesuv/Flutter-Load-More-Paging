@@ -1,10 +1,10 @@
 import 'package:bloc_load_more/src/core/blocs/home_list_bloc.dart';
 import 'package:bloc_load_more/src/core/events/home_list_event.dart';
-import 'package:bloc_load_more/src/ui/expanded_list.dart';
-import 'package:bloc_load_more/src/ui/grid.dart';
-import 'package:bloc_load_more/src/ui/home.dart';
-import 'package:bloc_load_more/src/ui/splash.dart';
-import 'package:bloc_load_more/src/ui/start.dart';
+import 'package:bloc_load_more/src/features/expanded/expanded_list.dart';
+import 'package:bloc_load_more/src/features/grid/grid.dart';
+import 'package:bloc_load_more/src/features/home/home.dart';
+import 'package:bloc_load_more/src/features/splash/splash.dart';
+import 'package:bloc_load_more/src/features/start/start.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

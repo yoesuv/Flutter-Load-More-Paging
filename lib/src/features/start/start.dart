@@ -1,6 +1,6 @@
-import 'package:bloc_load_more/src/ui/expanded_list.dart';
-import 'package:bloc_load_more/src/ui/grid.dart';
-import 'package:bloc_load_more/src/ui/home.dart';
+import 'package:bloc_load_more/src/features/expanded/expanded_list.dart';
+import 'package:bloc_load_more/src/features/grid/grid.dart';
+import 'package:bloc_load_more/src/features/home/home.dart';
 import 'package:bloc_load_more/src/ui/widgets/button_primary.dart';
 import 'package:flutter/material.dart';
 
