@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bloc_load_more/src/ui/start.dart';
+import 'package:bloc_load_more/src/features/start/start.dart';
 import 'package:flutter/material.dart';
 
 class Splash extends StatelessWidget {
@@ -20,10 +20,7 @@ class Splash extends StatelessWidget {
       body: Center(
         child: Text(
           'BLOC Load More',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
     );

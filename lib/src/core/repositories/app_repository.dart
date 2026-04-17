@@ -6,8 +6,8 @@ import 'package:dio/dio.dart';
 class AppRepository {
   final NetworkHelper _networkHelper = NetworkHelper();
 
-  Future<List<Post>> getListPost(int start) async {
-    final url = 'posts?_start=$start&_limit=$POST_LIMIT';
+  Future<List<Post>> getListPost({required int start}) async {
+    final url = 'posts?_start=$start&_limit=$postLimit';
     final Response<dynamic> response =
         await _networkHelper.get(url) as Response<dynamic>;
     return Post.buildListFromJson(response.data as List<dynamic>);

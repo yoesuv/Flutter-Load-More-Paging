@@ -1,20 +1,19 @@
 import 'package:bloc_load_more/src/core/data/constants.dart';
 import 'package:bloc_load_more/src/core/networks/logging_interceptor.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 
 class NetworkHelper {
-
   NetworkHelper() {
-    _dio = Dio(BaseOptions(
-      baseUrl: BASE_URL,
-      connectTimeout: TIME_OUT,
-      sendTimeout: TIME_OUT,
-      receiveTimeout: TIME_OUT,
-    ));
-    if (kDebugMode) {
-      _dio.interceptors.add(LoggingInterceptor());
-    }
+    _dio = Dio(
+      BaseOptions(
+        baseUrl: baseUrl,
+        connectTimeout: baseTimeOut,
+        sendTimeout: baseTimeOut,
+        receiveTimeout: baseTimeOut,
+        headers: {'User-Agent': userAgent, 'Accept': 'application/json'},
+      ),
+    );
+    _dio.interceptors.add(LoggingInterceptor());
   }
 
   late Dio _dio;
@@ -28,5 +27,4 @@ class NetworkHelper {
     }
     return response;
   }
-
 }

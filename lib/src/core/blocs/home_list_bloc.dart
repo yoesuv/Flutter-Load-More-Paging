@@ -14,12 +14,14 @@ EventTransformer<E> throttleDroppable<E>(Duration duration) {
 }
 
 class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
-  HomeListBloc() : super(const HomeListState()) {
+  final AppRepository _repository;
+
+  HomeListBloc({AppRepository? repository})
+    : _repository = repository ?? AppRepository(),
+      super(const HomeListState()) {
     on<HomeListEventLoad>(
       _onPostFetched,
-      transformer: throttleDroppable(
-        throttleDuration,
-      ),
+      transformer: throttleDroppable(throttleDuration),
     );
   }
 
@@ -30,22 +32,26 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
     if (state.hasReachedMax) return;
     try {
       if (state.status == PostStatus.initial) {
-        final posts = await AppRepository().getListPost(0);
-        return emit(state.copyWith(
-          status: PostStatus.success,
-          posts: posts,
-          hasReachedMax: false,
-        ));
+        final posts = await _repository.getListPost(start: 0);
+        return emit(
+          state.copyWith(
+            status: PostStatus.success,
+            posts: posts,
+            hasReachedMax: false,
+          ),
+        );
       }
-      final posts = await AppRepository().getListPost(state.posts.length);
+      final posts = await _repository.getListPost(start: state.posts.length);
       if (posts.isEmpty) {
         emit(state.copyWith(hasReachedMax: true));
       } else {
-        emit(state.copyWith(
-          status: PostStatus.success,
-          posts: List.of(state.posts)..addAll(posts),
-          hasReachedMax: false,
-        ));
+        emit(
+          state.copyWith(
+            status: PostStatus.success,
+            posts: List.of(state.posts)..addAll(posts),
+            hasReachedMax: false,
+          ),
+        );
       }
     } catch (e) {
       emit(state.copyWith(status: PostStatus.failure));

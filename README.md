@@ -1,11 +1,11 @@
 ## Flutter bloc load more/infinite paging ##
 
-Basic Load more/Infinite paging apps (list & grid).
+A Flutter app demonstrating load more/infinite scrolling using the Bloc pattern, fetching posts from JSONPlaceholder API. Supports list, expanded list, and grid layouts with network logging via the logger package.
 ```
-Flutter 3.29.3 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision ea121f8859 (5 weeks ago) • 2025-04-11 19:10:07 +0000
-Engine • revision cf56914b32
-Tools • Dart 3.7.2 • DevTools 2.42.3
+Flutter 3.41.6 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision db50e20168 (3 weeks ago) • 2026-03-25 16:21:00 -0700
+Engine • revision 425cfb54d0
+Tools • Dart 3.11.4 • DevTools 2.54.2
 ```
 
 #### Screenshot Android ####
@@ -21,6 +21,7 @@ Tools • Dart 3.7.2 • DevTools 2.42.3
 - [bloc concurency](https://pub.dev/packages/bloc_concurrency)
 - [dio](https://pub.dev/packages/dio)
 - [equatable](https://pub.dev/packages/equatable)
+- [logger](https://pub.dev/packages/logger)
 - [stream transform](https://pub.dev/packages/stream_transform)
 
 ### Source ###
