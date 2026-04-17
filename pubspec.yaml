@@ -37,8 +37,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  bloc_test: ^10.0.0
+  mocktail: ^1.0.0
 
-# For information on the generic Dart part of this file, see the
+# For information about the generic Dart part of pubspec.yaml, see the
 # following page: https://dart.dev/tools/pub/pubspec
   flutter_lints: ^6.0.0
 
