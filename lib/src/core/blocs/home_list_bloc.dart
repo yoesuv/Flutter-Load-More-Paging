@@ -32,7 +32,7 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
     if (state.hasReachedMax) return;
     try {
       if (state.status == PostStatus.initial) {
-        final posts = await _repository.getListPost(0);
+        final posts = await _repository.getListPost(start: 0);
         return emit(
           state.copyWith(
             status: PostStatus.success,
@@ -41,7 +41,7 @@ class HomeListBloc extends Bloc<HomeListEvent, HomeListState> {
           ),
         );
       }
-      final posts = await _repository.getListPost(state.posts.length);
+      final posts = await _repository.getListPost(start: state.posts.length);
       if (posts.isEmpty) {
         emit(state.copyWith(hasReachedMax: true));
       } else {
