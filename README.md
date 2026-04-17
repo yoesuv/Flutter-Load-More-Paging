@@ -25,5 +25,5 @@ Tools • Dart 3.11.4 • DevTools 2.54.2
 - [stream transform](https://pub.dev/packages/stream_transform)
 
 ### Source ###
-- [bloclibrary.dev](https://bloclibrary.dev/#/flutterinfinitelisttutorial)
+- [bloclibrary.dev](https://bloclibrary.dev/tutorials/flutter-infinite-list/)
 - [stackoverflow](https://stackoverflow.com/a/47827264)
