@@ -2,10 +2,10 @@
 
 A Flutter app demonstrating load more/infinite scrolling using the Bloc pattern, fetching posts from JSONPlaceholder API. Supports list, expanded list, and grid layouts with network logging via the logger package.
 ```
-Flutter 3.41.6 • channel stable • https://github.com/flutter/flutter.git
-Framework • revision db50e20168 (3 weeks ago) • 2026-03-25 16:21:00 -0700
-Engine • revision 425cfb54d0
-Tools • Dart 3.11.4 • DevTools 2.54.2
+Flutter 3.44.0 • channel stable • https://github.com/flutter/flutter.git
+Framework • revision 559ffa3f75 (3 days ago) • 2026-05-15 14:13:13 -0700
+Engine • hash fcf463a2242790d1fdcd9d044f533080f5022e18 (revision 4c525dac5e) (3 days ago) • 2026-05-15 19:00:04.000Z
+Tools • Dart 3.12.0 • DevTools 2.57.0
 ```
 
 #### Screenshot Android ####
