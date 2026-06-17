@@ -3,7 +3,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
 
    <application
-        android:label="bloc_load_more"
+        android:label="Bloc Load More"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
